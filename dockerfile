@@ -10,9 +10,12 @@ RUN pacman --noconfirm -Syu && \
     unzip \
     sudo \
     clang \
+    openocd \
+    usbutils \
     arm-none-eabi-gcc \
     arm-none-eabi-newlib && \
-    pacman --noconfirm -Scc
+    pacman --noconfirm -Scc && \
+    cp /usr/share/openocd/contrib/60-openocd.rules /etc/udev/rules.d/
 
 # Setup default user
 ENV USER=developer
