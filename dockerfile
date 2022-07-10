@@ -13,6 +13,7 @@ RUN pacman --noconfirm -Syu && \
     openocd \
     usbutils \
     arm-none-eabi-gcc \
+    arm-none-eabi-gdb \
     arm-none-eabi-newlib && \
     pacman --noconfirm -Scc && \
     cp /usr/share/openocd/contrib/60-openocd.rules /etc/udev/rules.d/
