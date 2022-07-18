@@ -15,8 +15,12 @@ RUN pacman --noconfirm -Syu && \
     arm-none-eabi-gcc \
     arm-none-eabi-gdb \
     arm-none-eabi-newlib && \
-    pacman --noconfirm -Scc && \
-    cp /usr/share/openocd/contrib/60-openocd.rules /etc/udev/rules.d/
+    pacman --noconfirm -Scc
+
+COPY 60-openocd.rules /etc/udev/rules.d/
+RUN /lib/systemd/systemd-udevd --daemon && \
+    udevadm trigger && \ 
+    udevadm control --reload-rules || echo "done"
 
 # Setup default user
 ENV USER=developer
