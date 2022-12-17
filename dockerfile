@@ -1,5 +1,9 @@
 FROM archlinux:base-20220515.0.56491
 
+RUN pacman-key --init
+RUN pacman --noconfirm -Sy
+RUN pacman --noconfirm -S archlinux-keyring 
+
 # Install basic programs and custom glibc
 RUN pacman --noconfirm -Syu && \
     pacman --noconfirm -S \
@@ -10,12 +14,16 @@ RUN pacman --noconfirm -Syu && \
     unzip \
     sudo \
     clang \
+    meson \
     openocd \
     usbutils \
     arm-none-eabi-gcc \
     arm-none-eabi-gdb \
     arm-none-eabi-newlib && \
     pacman --noconfirm -Scc
+
+RUN wget https://muon.build/releases/edge/muon-edge-amd64-linux-static -O /usr/bin/muon && \
+    chmod 775 /usr/bin/muon
 
 COPY 60-openocd.rules /etc/udev/rules.d/
 RUN /lib/systemd/systemd-udevd --daemon && \
