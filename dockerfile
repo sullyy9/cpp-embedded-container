@@ -26,9 +26,6 @@ RUN wget https://muon.build/releases/edge/muon-edge-amd64-linux-static -O /usr/b
     chmod 775 /usr/bin/muon
 
 COPY 60-openocd.rules /etc/udev/rules.d/
-RUN /lib/systemd/systemd-udevd --daemon && \
-    udevadm trigger && \ 
-    udevadm control --reload-rules || echo "done"
 
 # Setup default user
 ENV USER=developer
