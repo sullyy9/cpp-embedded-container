@@ -1,4 +1,4 @@
-FROM archlinux:base-20220515.0.56491
+FROM archlinux:base-20230205.0.123931
 
 RUN pacman-key --init
 RUN pacman --noconfirm -Sy
@@ -21,7 +21,7 @@ RUN pacman --noconfirm -Syu && \
     arm-none-eabi-gdb \
     arm-none-eabi-newlib && \
     pacman --noconfirm -Scc
-
+    
 RUN wget https://muon.build/releases/edge/muon-edge-amd64-linux-static -O /usr/bin/muon && \
     chmod 775 /usr/bin/muon
 
