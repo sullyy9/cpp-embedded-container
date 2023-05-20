@@ -1,4 +1,4 @@
-FROM archlinux:base-20230205.0.123931
+FROM archlinux:latest
 
 RUN pacman-key --init
 RUN pacman --noconfirm -Sy
@@ -13,7 +13,7 @@ RUN pacman --noconfirm -Syu && \
     cmake \
     unzip \
     sudo \
-    clang \
+    # clang \
     meson \
     openocd \
     usbutils \
@@ -25,10 +25,18 @@ RUN pacman --noconfirm -Syu && \
 RUN wget https://muon.build/releases/edge/muon-edge-amd64-linux-static -O /usr/bin/muon && \
     chmod 775 /usr/bin/muon
 
+# Install clangd
+ENV CLANGD_URL=https://github.com/clangd/clangd/releases/download/16.0.2/clangd-linux-16.0.2.zip
+RUN wget $CLANGD_URL -O ~/clangd.zip && \
+    unzip ~/clangd.zip -d ~/clangd && \
+    cp ~/clangd/*/bin/clangd /usr/local/bin/ && \ 
+    cp -r ~/clangd/*/lib/* /usr/local/lib/ && \
+    rm ~/clangd.zip && rm -R ~/clangd
+
 COPY 60-openocd.rules /etc/udev/rules.d/
 
 # Setup default user
-ENV USER=developer
+ENV USER=dev
 RUN useradd --create-home -s /bin/bash -m $USER && \
     echo "$USER:archlinux" | chpasswd && \
     usermod -aG wheel $USER && \
