@@ -72,7 +72,7 @@ ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3744", MODE="660", TAG+="uaccess"
 ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3748", MODE="660", TAG+="uaccess"
 
 # STMicroelectronics ST-LINK/V2.1
-ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374b", MODE="660", GROUP="developer", TAG+="uaccess"
+ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374b", MODE="660", GROUP="dev", TAG+="uaccess"
 ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3752", MODE="660", TAG+="uaccess"
 
 # STMicroelectronics STLINK-V3
