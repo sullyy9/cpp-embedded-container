@@ -8,6 +8,7 @@ RUN pacman --noconfirm -S archlinux-keyring
 RUN pacman --noconfirm -Syu && \
     pacman --noconfirm -S \
     git \
+    gcc \
     wget \
     make \
     cmake \
