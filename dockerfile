@@ -14,7 +14,6 @@ RUN pacman --noconfirm -Syu && \
     cmake \
     unzip \
     sudo \
-    # clang \
     meson \
     openocd \
     usbutils \
@@ -22,17 +21,18 @@ RUN pacman --noconfirm -Syu && \
     arm-none-eabi-gdb \
     arm-none-eabi-newlib && \
     pacman --noconfirm -Scc
-    
+
 RUN wget https://muon.build/releases/edge/muon-edge-amd64-linux-static -O /usr/bin/muon && \
     chmod 775 /usr/bin/muon
 
-# Install clangd
-ENV CLANGD_URL=https://github.com/clangd/clangd/releases/download/16.0.2/clangd-linux-16.0.2.zip
-RUN wget $CLANGD_URL -O ~/clangd.zip && \
-    unzip ~/clangd.zip -d ~/clangd && \
-    cp ~/clangd/*/bin/clangd /usr/local/bin/ && \ 
-    cp -r ~/clangd/*/lib/* /usr/local/lib/ && \
-    rm ~/clangd.zip && rm -R ~/clangd
+# Install LLVM
+ENV LLVM_URL=https://github.com/llvm/llvm-project/releases/download/llvmorg-17.0.6/clang+llvm-17.0.6-x86_64-linux-gnu-ubuntu-22.04.tar.xz
+RUN wget $LLVM_URL -O ~/llvm.tar.xz && \
+    mkdir ~/llvm && \
+    tar -xf ~/llvm.tar.xz -C ~/llvm && \
+    cp ~/llvm/*/bin/* /usr/local/bin/ && \
+    cp -r ~/llvm/*/lib/* /usr/local/lib/  && \
+    rm ~/llvm.tar.xz && rm -R ~/llvm
 
 COPY 60-openocd.rules /etc/udev/rules.d/
 
