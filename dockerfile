@@ -79,7 +79,6 @@ RUN cd ~ && \
 
 # Uninstall GCC and LLVM build dependencies
 RUN pacman --noconfirm -Rn \
-    flex \
     bison \
     gperf \
     patch \
